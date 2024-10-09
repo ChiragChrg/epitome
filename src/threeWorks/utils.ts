@@ -2,11 +2,11 @@
 
 class ClientDims {
   static get width() {
-    return document.documentElement.clientWidth;
+    return typeof window !== "undefined" ? document.documentElement.clientWidth : null;
   }
 
   static get height() {
-    return document.documentElement.clientHeight;
+    return typeof window !== "undefined" ? document.documentElement.clientHeight : null;
   }
 }
 
