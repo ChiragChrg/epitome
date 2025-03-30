@@ -11,7 +11,7 @@ const ThreeComp = () => {
   const { setLoadingCompleted, updateLoadingProgress } = useLoader();
 
   const onProgress = (progress: number) => {
-    if (progress === 100) {
+    if (progress >= 100) {
       setTimeout(() => {
         setLoadingCompleted(true);
       }, 1600);
