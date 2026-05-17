@@ -7,7 +7,6 @@ import RulesCard from "../RulesCard/RulesCard";
 import classes from "./Event.module.css";
 import Typewriter from "@/components/CustomUI/TypeWriter";
 import ToggleUI from "@/components/CustomUI/ToggleUI";
-// @ts-expect-error
 import { PowerGlitch } from "powerglitch";
 
 type Props = {
@@ -22,7 +21,7 @@ type Props = {
 
 const TRANSITION_TIME = 500;
 
-const Event = ({}: Props) => {
+const Event = ({ }: Props) => {
   const [curEventIndex, setCurEventIndex] = useState(0);
   const [showTitle, setShowTitle] = useState(false);
   const [showRules, setShowRules] = useState(false);
@@ -126,9 +125,8 @@ const Event = ({}: Props) => {
           className={`${classes.Content}`}
         >
           <h1
-            className={`font-iceland font-bold ${classes.title} ${
-              showTitle ? classes.titleReveal : classes.titleClose
-            } text-3xl sm:text-4xl md:text-5xl text-left sm:text-center`}
+            className={`font-iceland font-bold ${classes.title} ${showTitle ? classes.titleReveal : classes.titleClose
+              } text-3xl sm:text-4xl md:text-5xl text-left sm:text-center`}
           >
             {EventList[curEventIndex].title}
           </h1>

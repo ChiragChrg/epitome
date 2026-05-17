@@ -55,7 +55,7 @@ const LoginForm = () => {
     setIsLoading(true);
 
     try {
-      const res = await signIn("google", {
+      await signIn("google", {
         callbackUrl: callback || "/dashboard",
       });
       // console.log("LoginRes", res);
@@ -64,7 +64,6 @@ const LoginForm = () => {
       toast.success("Logged in Successfully!", {
         id: OAuthTostID,
       });
-      router.push(res?.url || "/dashboard");
     } catch (err) {
       toast.error("Something went wrong!", {
         id: OAuthTostID,
