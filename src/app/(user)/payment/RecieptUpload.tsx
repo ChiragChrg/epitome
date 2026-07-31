@@ -1,5 +1,5 @@
 "use client"
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useEdgeStore } from '@/lib/edgestore';
 import toast from 'react-hot-toast';
 import useUserStore from '@/store/useUserStore';
@@ -9,6 +9,7 @@ import Image from 'next/image';
 
 const RecieptUpload = () => {
     const [file, setFile] = useState<File>();
+    const [previewUrl, setPreviewUrl] = useState<string>();
     const [uploadProgress, setUploadProgress] = useState<number>(0);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -16,6 +17,18 @@ const RecieptUpload = () => {
     const { edgestore } = useEdgeStore();
     const FileInputRef = useRef<HTMLInputElement>(null)
     const { user, setUser } = useUserStore()
+
+    useEffect(() => {
+        if (!file) {
+            setPreviewUrl(undefined)
+            return
+        }
+
+        const objectUrl = URL.createObjectURL(file)
+        setPreviewUrl(objectUrl)
+
+        return () => URL.revokeObjectURL(objectUrl)
+    }, [file])
 
     const HandleFileUpload = async () => {
         if (!file) return
@@ -70,9 +83,12 @@ const RecieptUpload = () => {
                 onClick={() => FileInputRef.current?.click()}
             >
                 {file ? (
-                    <img
-                        src={URL.createObjectURL(file)}
+                    <Image
+                        src={previewUrl ?? ''}
                         alt="Preview"
+                        width={400}
+                        height={400}
+                        unoptimized
                         className='w-full h-auto max-w-xs'
                     />
                 ) : (
